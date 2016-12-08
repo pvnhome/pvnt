@@ -13,7 +13,7 @@ javacc {
 
     configs {
         jj {
-            inputFile = file('src/main/javacc/kz/pvnhome/pvnt/javacc/Parser.jj')
+            inputFile = file('src/main/javacc/kz/pvnhome/pvnt/javacc/ExtListParser.jj')
             packageName = 'kz.pvnhome.pvnt.javacc'
         }
     }
