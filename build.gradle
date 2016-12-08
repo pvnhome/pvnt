@@ -1,19 +1,4 @@
 plugins {
    id 'java'
    id 'eclipse'
-   id 'ca.coglinc.javacc' version '2.4.0'
 }
-
-repositories {
-   mavenCentral()
-}
-
-sourceSets {
-   main {
-      java {
-         srcDir compileJavacc.outputDirectory
-      }
-   }
-}
-
-eclipseClasspath.dependsOn("compileJavacc")
