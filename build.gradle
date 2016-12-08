@@ -9,11 +9,11 @@ repositories {
 }
 
 sourceSets {
-    main {
-        java {
-            srcDir compileJavacc.outputDirectory
-        }
-    }
+   main {
+      java {
+         srcDir compileJavacc.outputDirectory
+      }
+   }
 }
 
 eclipseClasspath.dependsOn("compileJavacc")
