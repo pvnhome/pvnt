@@ -17,10 +17,6 @@ public class TmplPart extends CompositePart {
       super(id);
    }
 
-   public TmplPart(Part part) {
-      super(part.getId());
-   }
-
    //==============================================================
    // Part interface methods.
    //==============================================================

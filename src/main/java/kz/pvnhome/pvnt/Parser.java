@@ -62,7 +62,21 @@ public class Parser {
             case TMPL_ID :
                tagLen = findBegTagEnd(text, len, pos);
                if (tagLen > 0) {
-                  currentPart = new TmplPart(sb.toString().trim());
+                  if (file.getTmpl() == null) {
+                     file.setTmpl(new TmplPart(sb.toString().trim()));
+                     currentPart = file.getTmpl();
+                  } else {
+                     StringBuilder err = new StringBuilder();
+                     err.append("Multiple TMPL tag in ").append(file.getPath().toString()).append(" (TMPL: ");
+                     if (sb.toString().trim().isEmpty()) {
+                        err.append(" root");
+                     } else {
+                        err.append(" file=").append(sb.toString().trim());
+                     }
+                     err.append(")");
+                     throw new Exception(err.toString());
+                  }
+
                   sb.setLength(0);
                   pos += tagLen;
                   state = State.TMPL;

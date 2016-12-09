@@ -22,6 +22,7 @@ public class File extends CompositePart {
    private File parent;
    private List<File> children;
 
+   private TmplPart tmpl;
    private Map<String, ImplPart> implMap;
 
    //==============================================================
@@ -125,7 +126,7 @@ public class File extends CompositePart {
       if (part instanceof EditPart) {
          newPart = new EditPart(part);
       } else if (part instanceof TmplPart) {
-         newPart = new TmplPart(part);
+         newPart = new TmplPart(getTmpl().getId());
       } else if (part instanceof ImplPart) {
          newPart = new ImplPart(part);
       }
@@ -154,5 +155,13 @@ public class File extends CompositePart {
 
    public void setParent(File parent) {
       this.parent = parent;
+   }
+
+   public TmplPart getTmpl() {
+      return tmpl;
+   }
+
+   public void setTmpl(TmplPart tmpl) {
+      this.tmpl = tmpl;
    }
 }
