@@ -1,5 +1,6 @@
 package kz.pvnhome.pvnt;
 
+import java.io.IOException;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.LinkOption;
@@ -58,25 +59,11 @@ public class Site {
 
    }
 
-   public void save() {
+   public void save() throws IOException {
       for (File file : files.values()) {
-         System.out.println("   " + file.getName());
-         String[] implIds = file.getImplIds();
-         if (implIds.length > 0) {
-            System.out.println("      IMPL IDS: " + Arrays.toString(implIds));
-         }
-         printFilePartsTree(file);
+         printDebugMessage("save file: %s", file.getName());
+         file.save();
       }
-      /*
-      Path path = FileSystems.getDefault().getPath("logs", "access.log");
-      BufferedReader reader = Files.newBufferedReader(path, StandardCharsets.UTF_8);
-      
-      try (BufferedWriter writer = Files.newBufferedWriter(Paths.get("example.txt"), StandardCharsets.UTF_8)) {
-         writer.write("");
-      } catch (IOException e) {
-         // TODO 
-      }
-      */
    }
 
    public void addFile(Path path) throws Exception {

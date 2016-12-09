@@ -1,12 +1,17 @@
 package kz.pvnhome.pvnt;
 
 /**
+ * PVN Template utility.
  * Created: 08.12.2016 9:11:32
+ * 
+ * History:
+ * 08.12.2016 - 0.90 - (BETA) Basic functionality. Ready for testing. (victor)
+ * 
  * @author victor
  */
 public class PVNTemplateRunner {
    public static void main(String[] args) {
-      System.out.println("PVN Template engine");
+      System.out.println("PVN Template engine (version 0.90 beta)");
 
       String path = ".";
       String ext = "html";

@@ -1,5 +1,7 @@
 package kz.pvnhome.pvnt;
 
+import java.io.IOException;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,6 +39,13 @@ public abstract class CompositePart implements Part {
    @Override
    public List<Part> getChildren() {
       return children;
+   }
+
+   @Override
+   public void write(Writer writer) throws IOException {
+      for (Part part : children) {
+         part.write(writer);
+      }
    }
 
    //==============================================================

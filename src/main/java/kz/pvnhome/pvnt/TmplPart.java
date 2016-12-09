@@ -1,5 +1,8 @@
 package kz.pvnhome.pvnt;
 
+import java.io.IOException;
+import java.io.Writer;
+
 /**
  * Created: 08.12.2016 20:26:59
  * @author victor
@@ -27,20 +30,10 @@ public class TmplPart extends CompositePart {
       }
    }
 
-   //==============================================================
-   // Public methods.
-   //==============================================================
-
-   //TODO
-
-   //==============================================================
-   // Private methods.
-   //==============================================================
-
-   //TODO
-
-   //==============================================================
-   // GET/SET-methods.
-   //==============================================================
-
+   @Override
+   public void write(Writer writer) throws IOException {
+      writer.write("<!--pvnTmplBeg " + getId() + "-->");
+      super.write(writer);
+      writer.write("<!--pvnTmplEnd-->");
+   }
 }

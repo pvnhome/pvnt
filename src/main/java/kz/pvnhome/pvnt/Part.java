@@ -1,5 +1,7 @@
 package kz.pvnhome.pvnt;
 
+import java.io.IOException;
+import java.io.Writer;
 import java.util.List;
 
 /**
@@ -14,4 +16,6 @@ public interface Part {
    public List<Part> getChildren();
 
    public String getDescription();
+
+   public void write(Writer writer) throws IOException;
 }

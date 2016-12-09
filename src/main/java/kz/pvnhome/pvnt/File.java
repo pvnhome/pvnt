@@ -1,5 +1,6 @@
 package kz.pvnhome.pvnt;
 
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -40,6 +41,14 @@ public class File extends CompositePart {
 
    public String load() throws IOException {
       return new String(Files.readAllBytes(path), StandardCharsets.UTF_8);
+   }
+
+   public void save() throws IOException {
+      try (BufferedWriter writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8)) {
+         for (Part part : getChildren()) {
+            part.write(writer);
+         }
+      }
    }
 
    public void addImpl(Part part) {
@@ -85,5 +94,4 @@ public class File extends CompositePart {
    public Site getSite() {
       return site;
    }
-
 }

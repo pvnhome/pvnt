@@ -1,5 +1,7 @@
 package kz.pvnhome.pvnt;
 
+import java.io.IOException;
+import java.io.Writer;
 import java.util.Collections;
 import java.util.List;
 
@@ -41,20 +43,8 @@ public class TextPart implements Part {
       return "TEXT";
    }
 
-   //==============================================================
-   // Public methods.
-   //==============================================================
-
-   //TODO
-
-   //==============================================================
-   // Private methods.
-   //==============================================================
-
-   //TODO
-
-   //==============================================================
-   // GET/SET-methods.
-   //==============================================================
-
+   @Override
+   public void write(Writer writer) throws IOException {
+      writer.write(text);
+   }
 }
