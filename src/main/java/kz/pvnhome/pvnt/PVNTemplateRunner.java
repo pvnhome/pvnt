@@ -28,7 +28,7 @@ public class PVNTemplateRunner {
          System.out.println("   pvnt [path/to/site [extension]]");
       }
 
-      System.out.println("Process all " + ext + " files in " + path);
+      System.out.println("INFO: Process all " + ext + " files in " + path);
 
       try {
          Site site = new Site(path, ext);
@@ -37,13 +37,19 @@ public class PVNTemplateRunner {
 
          site.load();
 
+         System.out.println("INFO: files loaded");
+
          if (site.isDebugMode()) {
             site.printPartsTree();
          }
 
          site.process();
+
+         System.out.println("INFO: files processed");
          
          site.save();
+
+         System.out.println("INFO: files saved");
 
       } catch (Exception e) {
          if (debugMode) {

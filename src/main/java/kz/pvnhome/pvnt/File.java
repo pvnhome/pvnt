@@ -116,6 +116,14 @@ public class File extends CompositePart {
                implPart.setProcessed(true);
                currentPart.addPart(implPart);
             } else {
+               if (part instanceof ImplPart) {
+                  ImplPart implPart = implMap.get(part.getId());
+                  if (implPart != null) {
+                     implPart.setProcessed(true);
+                     // TODO We need to compare part with implPart and we need to print message if the difference will be detected  
+                  }
+               }
+
                Part clonedPart = clone(part);
                currentPart.addPart(clonedPart);
                if (!part.getChildren().isEmpty()) {
