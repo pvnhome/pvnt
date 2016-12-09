@@ -6,6 +6,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -76,11 +77,15 @@ public class File extends CompositePart {
       children.add(child);
    }
 
-   public void process() {
+   public void process() throws Exception {
       if (!isRoot()) {
          site.printDebugMessage("process file: %s", getName());
          setChildren(new ArrayList<>());
          process(parent.getChildren(), this);
+
+         if (implMap.values().stream().anyMatch(it -> !it.isProcessed())) {
+            throw new Exception("We have IMPL tags without EDIT tags in template (" + Arrays.toString(implMap.values().stream().filter(it -> !it.isProcessed()).map(it -> it.getId()).toArray()) + ") in " + getName());
+         }
       }
 
       for (File file : children) {

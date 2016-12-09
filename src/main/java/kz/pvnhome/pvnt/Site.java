@@ -55,7 +55,7 @@ public class Site {
       }
    }
 
-   public void process() {
+   public void process() throws Exception {
       for (File file : files.values()) {
          if (file.isRoot()) {
             file.process();

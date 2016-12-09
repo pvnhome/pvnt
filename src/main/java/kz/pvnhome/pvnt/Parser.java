@@ -53,7 +53,10 @@ public class Parser {
                   pos++;
                } else {
                   System.out.println("  add text"); // TODO DELETE DEBUG
-                  part.addPart(new TextPart(sb.toString()));
+                  String newText = sb.toString();
+                  if (!newText.isEmpty()) {
+                     part.addPart(new TextPart(newText));
+                  }
                   sb.setLength(0);
                   pos += TAG_BEG_LEN;
                }
@@ -187,7 +190,10 @@ public class Parser {
       }
 
       if (state == State.TEXT) {
-         part.addPart(new TextPart(sb.toString()));
+         String newText = sb.toString();
+         if (!newText.isEmpty()) {
+            part.addPart(new TextPart(newText));
+         }
       } else {
          StringBuilder err = new StringBuilder();
          err.append("End tag not found in ").append(file.getPath().toString()).append(" (").append(part.getDescription());
@@ -251,7 +257,7 @@ public class Parser {
    }
 
    private static int findEndTag(String t, int l, int p, char[] c) {
-      if (p + c.length < l) {
+      if (p + c.length <= l) {
          for (int i = 0; i < c.length; i++) {
             if (t.charAt(p + i) != c[i]) {
                return 0;
