@@ -23,7 +23,7 @@ public class TmplPart extends CompositePart {
 
    @Override
    public String getDescription() {
-      if (getId() == null || getId().isEmpty()) {
+      if (isRoot()) {
          return "TMPL: root";
       } else {
          return "TMPL: file = " + getId();
@@ -32,8 +32,20 @@ public class TmplPart extends CompositePart {
 
    @Override
    public void write(Writer writer) throws IOException {
-      writer.write("<!--pvnTmplBeg " + getId() + "-->");
+      if (isRoot()) {
+         writer.write("<!--pvnTmplBeg-->");
+      } else {
+         writer.write("<!--pvnTmplBeg " + getId() + "-->");
+      }
       super.write(writer);
       writer.write("<!--pvnTmplEnd-->");
+   }
+
+   //==============================================================
+   // Public methods.
+   //==============================================================
+
+   public boolean isRoot() {
+      return getId() == null || getId().isEmpty();
    }
 }
