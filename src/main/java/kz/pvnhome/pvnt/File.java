@@ -84,7 +84,7 @@ public class File extends CompositePart {
          process(parent.getChildren(), this);
 
          if (implMap.values().stream().anyMatch(it -> !it.isProcessed())) {
-            throw new Exception("We have IMPL tags without EDIT tags in template (" + Arrays.toString(implMap.values().stream().filter(it -> !it.isProcessed()).map(it -> it.getId()).toArray()) + ") in " + getName());
+            throw new Exception("We have IMPL tags " + Arrays.toString(implMap.values().stream().filter(it -> !it.isProcessed()).map(it -> it.getId()).toArray()) + " without EDIT tags in template in " + getName());
          }
       }
 
