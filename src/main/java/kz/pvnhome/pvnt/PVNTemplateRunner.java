@@ -5,7 +5,7 @@ package kz.pvnhome.pvnt;
  * Created: 08.12.2016 9:11:32
  * 
  * History:
- * 08.12.2016 - 0.90 - (BETA) Basic functionality. Ready for testing. (victor)
+ * 09.12.2016 - 0.90 - (BETA) Basic functionality. Ready for testing. (victor)
  * 
  * @author victor
  */
