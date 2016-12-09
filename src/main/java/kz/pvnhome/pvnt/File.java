@@ -71,7 +71,7 @@ public class File extends CompositePart {
    }
 
    public void addChild(File child) {
-      child.setParent(child);
+      child.setParent(this);
       children.add(child);
    }
 
