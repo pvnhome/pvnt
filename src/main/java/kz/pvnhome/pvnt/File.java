@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,7 +22,7 @@ public class File extends CompositePart {
    private File parent;
    private List<File> children;
 
-   private Map<String, Part> implMap;
+   private Map<String, ImplPart> implMap;
 
    //==============================================================
    // Constructors.
@@ -32,6 +33,7 @@ public class File extends CompositePart {
       this.site = site;
       this.path = path;
 
+      children = new ArrayList<>();
       implMap = new HashMap<>();
    }
 
@@ -51,7 +53,7 @@ public class File extends CompositePart {
       }
    }
 
-   public void addImpl(Part part) {
+   public void addImpl(ImplPart part) {
       implMap.put(part.getId(), part);
    }
 
@@ -62,6 +64,27 @@ public class File extends CompositePart {
    public String[] getImplIds() {
       Set<String> keySet = implMap.keySet();
       return keySet.toArray(new String[keySet.size()]);
+   }
+
+   public boolean isRoot() {
+      return parent == null;
+   }
+
+   public void addChild(File child) {
+      child.setParent(child);
+      children.add(child);
+   }
+
+   public void process() {
+      if (!isRoot()) {
+         site.printDebugMessage("process file: %s", getName());
+         setChildren(new ArrayList<>());
+         process(parent.getChildren(), this);
+      }
+
+      for (File file : children) {
+         file.process();
+      }
    }
 
    //==============================================================
@@ -77,7 +100,37 @@ public class File extends CompositePart {
    // Private methods.
    //==============================================================
 
-   //TODO
+   private void process(List<Part> templateParts, Part currentPart) {
+      for (Part part : templateParts) {
+         if (part instanceof TextPart) {
+            currentPart.addPart(part);
+         } else {
+            if (part instanceof EditPart && implMap.containsKey(part.getId())) {
+               ImplPart implPart = implMap.get(part.getId());
+               implPart.setProcessed(true);
+               currentPart.addPart(implPart);
+            } else {
+               Part clonedPart = clone(part);
+               currentPart.addPart(clonedPart);
+               if (!part.getChildren().isEmpty()) {
+                  process(part.getChildren(), clonedPart);
+               }
+            }
+         }
+      }
+   }
+
+   private Part clone(Part part) {
+      Part newPart = part;
+      if (part instanceof EditPart) {
+         newPart = new EditPart(part);
+      } else if (part instanceof TmplPart) {
+         newPart = new TmplPart(part);
+      } else if (part instanceof ImplPart) {
+         newPart = new ImplPart(part);
+      }
+      return newPart;
+   }
 
    //==============================================================
    // GET/SET-methods.
@@ -93,5 +146,13 @@ public class File extends CompositePart {
 
    public Site getSite() {
       return site;
+   }
+
+   public File getParent() {
+      return parent;
+   }
+
+   public void setParent(File parent) {
+      this.parent = parent;
    }
 }

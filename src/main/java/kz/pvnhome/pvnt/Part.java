@@ -15,6 +15,8 @@ public interface Part {
 
    public List<Part> getChildren();
 
+   public void setChildren(List<Part> children);
+
    public String getDescription();
 
    public void write(Writer writer) throws IOException;

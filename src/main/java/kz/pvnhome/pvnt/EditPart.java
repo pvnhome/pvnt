@@ -17,6 +17,10 @@ public class EditPart extends CompositePart {
       super(id);
    }
 
+   public EditPart(Part part) {
+      super(part.getId());
+   }
+
    //==============================================================
    // Part interface methods.
    //==============================================================

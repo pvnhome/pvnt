@@ -39,6 +39,10 @@ public class TextPart implements Part {
    }
 
    @Override
+   public void setChildren(List<Part> children) {
+   }
+
+   @Override
    public String getDescription() {
       return "TEXT";
    }

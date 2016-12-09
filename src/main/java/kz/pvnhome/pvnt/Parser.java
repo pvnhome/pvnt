@@ -88,7 +88,8 @@ public class Parser {
                      Path templatePath = file.getPath().getParent().resolve(templateFileName);
                      if (Files.exists(templatePath, LinkOption.NOFOLLOW_LINKS)) {
                         System.out.println("  add tmpl file"); // TODO DELETE DEBUG
-                        file.getSite().addFile(templatePath);
+                        File parentFile = file.getSite().addFile(templatePath);
+                        parentFile.addChild(file);
                      } else {
                         throw new Exception("Template \"" + templateFileName + "\" is not exists");
                      }
@@ -157,7 +158,7 @@ public class Parser {
                   parse(file, currentPart, sb.toString());
 
                   part.addPart(currentPart);
-                  file.addImpl(currentPart);
+                  file.addImpl((ImplPart) currentPart);
 
                   currentPart = null;
                   sb.setLength(0);

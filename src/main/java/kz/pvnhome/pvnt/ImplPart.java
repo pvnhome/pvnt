@@ -8,6 +8,7 @@ import java.io.Writer;
  * @author victor
  */
 public class ImplPart extends CompositePart {
+   boolean processed = false;
 
    //==============================================================
    // Constructors.
@@ -15,6 +16,10 @@ public class ImplPart extends CompositePart {
 
    public ImplPart(String id) {
       super(id);
+   }
+
+   public ImplPart(Part part) {
+      super(part.getId());
    }
 
    //==============================================================
@@ -31,5 +36,17 @@ public class ImplPart extends CompositePart {
       writer.write("<!--pvnImplBeg " + getId() + "-->");
       super.write(writer);
       writer.write("<!--pvnImplEnd-->");
+   }
+
+   //==============================================================
+   // GET/SET-methods.
+   //==============================================================
+
+   public boolean isProcessed() {
+      return processed;
+   }
+
+   public void setProcessed(boolean processed) {
+      this.processed = processed;
    }
 }

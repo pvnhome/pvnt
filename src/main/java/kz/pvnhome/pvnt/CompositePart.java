@@ -42,6 +42,11 @@ public abstract class CompositePart implements Part {
    }
 
    @Override
+   public void setChildren(List<Part> children) {
+      this.children = children;
+   }
+
+   @Override
    public void write(Writer writer) throws IOException {
       for (Part part : children) {
          part.write(writer);

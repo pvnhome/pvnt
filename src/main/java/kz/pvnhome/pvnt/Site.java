@@ -56,25 +56,33 @@ public class Site {
    }
 
    public void process() {
-
+      for (File file : files.values()) {
+         if (file.isRoot()) {
+            file.process();
+         }
+      }
    }
 
    public void save() throws IOException {
       for (File file : files.values()) {
-         printDebugMessage("save file: %s", file.getName());
-         file.save();
+         if (!file.isRoot()) {
+            printDebugMessage("save file: %s", file.getName());
+            file.save();
+         }
       }
    }
 
-   public void addFile(Path path) throws Exception {
+   public File addFile(Path path) throws Exception {
       File file = new File(this, path.toAbsolutePath());
       if (files.containsKey(file.getName())) {
-         System.out.println("added before: " + file.getName());
+         printDebugMessage("file from cache: %s", file.getName());
+         file = files.get(file.getName());
       } else {
-         System.out.println("add file:     " + file.getName());
+         printDebugMessage("add file:        %s", file.getName());
          Parser.parse(file, file, file.load());
          files.put(file.getName(), file);
       }
+      return file;
    }
 
    public void printPartsTree() {
