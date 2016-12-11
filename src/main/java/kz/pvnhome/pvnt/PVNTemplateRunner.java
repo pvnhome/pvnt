@@ -23,29 +23,42 @@ package kz.pvnhome.pvnt;
  * 
  * History:
  * 09.12.2016 - 0.90 - (BETA) Basic functionality. Ready for testing. (victor)
+ * 12.12.2016 - 0.91 - (BETA) Added command line switch "-d". (victor)
  * 
  * @author victor
  */
 public class PVNTemplateRunner {
    public static void main(String[] args) {
-      System.out.println("PVN Template engine (version 0.90 beta)");
+      System.out.println("PVN Template engine (version 0.91 beta)");
 
       String path = ".";
       String ext = "html";
-      boolean debugMode = true; // TODO Switch to false after debugging
+      boolean debugMode = false;
 
-      if (args.length == 1) {
-         path = args[0];
-      } else if (args.length == 2) {
-         path = args[0];
-         ext = args[1];
-      } else {
-         System.out.println("WARN: Bad argument count");
-         System.out.println("Use:");
-         System.out.println("   pvnt [path/to/site [extension]]");
+      int ind = 0;
+      if (args.length > 0) {
+         if ("-h".equals(args[0]) || "-help".equals(args[0])) {
+            printUsage();
+            System.exit(0);
+         } else if ("-d".equals(args[0]) || "-debug".equals(args[0])) {
+            debugMode = true;
+            ind++;
+         }
       }
 
-      System.out.println("INFO: Process all " + ext + " files in " + path);
+      if (args.length == ind + 1) {
+         path = args[ind];
+      } else if (args.length == ind + 2) {
+         path = args[ind];
+         ext = args[ind + 1];
+      } else if (args.length == ind) {
+      } else {
+         System.out.println("WARN: Bad argument count");
+         printUsage();
+         System.exit(0);
+      }
+
+      System.out.println("INFO: Process all " + ext + " files in " + path + " (debug " + (debugMode ? "on" : "off") + ")");
 
       try {
          Site site = new Site(path, ext);
@@ -63,7 +76,7 @@ public class PVNTemplateRunner {
          site.process();
 
          System.out.println("INFO: files processed");
-         
+
          site.save();
 
          System.out.println("INFO: files saved");
@@ -75,5 +88,12 @@ public class PVNTemplateRunner {
             System.out.println("ERROR: " + e.getMessage());
          }
       }
+   }
+
+   private static void printUsage() {
+      System.out.println("usage: pvnt [options] [path/to/site [extension]]");
+      System.out.println("Options:");
+      System.out.println("   -help, -h              print this message");
+      System.out.println("   -debug, -d             print debugging information");
    }
 }

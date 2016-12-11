@@ -53,6 +53,8 @@ public class Parser {
       int tagLen;
       int len = text.length();
 
+      Site site = file.getSite();
+
       StringBuilder sb = new StringBuilder();
 
       Part currentPart = null;
@@ -70,7 +72,7 @@ public class Parser {
                   sb.append(ch);
                   pos++;
                } else {
-                  System.out.println("  add text"); // TODO DELETE DEBUG
+                  site.printDebugMessage("  add text"); // TODO DELETE DEBUG
                   String newText = sb.toString();
                   if (!newText.isEmpty()) {
                      part.addPart(new TextPart(newText));
@@ -110,7 +112,7 @@ public class Parser {
             case TMPL :
                tagLen = findEndTag(text, len, pos, TAG_END_TMPL);
                if (tagLen > 0) {
-                  System.out.println("  add tmpl"); // TODO DELETE DEBUG
+                  site.printDebugMessage("  add tmpl"); // TODO DELETE DEBUG
 
                   parse(file, currentPart, sb.toString());
 
@@ -122,8 +124,8 @@ public class Parser {
                      // гарантированно возвращает absolute path.   
                      Path templatePath = file.getPath().getParent().resolve(templateFileName);
                      if (Files.exists(templatePath, LinkOption.NOFOLLOW_LINKS)) {
-                        System.out.println("  add tmpl file"); // TODO DELETE DEBUG
-                        File parentFile = file.getSite().addFile(templatePath);
+                        site.printDebugMessage("  add tmpl file"); // TODO DELETE DEBUG
+                        File parentFile = site.addFile(templatePath);
                         parentFile.addChild(file);
                      } else {
                         throw new Exception("Template \"" + templateFileName + "\" is not exists");
@@ -158,7 +160,7 @@ public class Parser {
             case EDIT :
                tagLen = findEndTag(text, len, pos, currentEndTag);
                if (tagLen > 0) {
-                  System.out.println("  add edit"); // TODO DELETE DEBUG
+                  site.printDebugMessage("  add edit"); // TODO DELETE DEBUG
 
                   parse(file, currentPart, sb.toString());
 
@@ -192,7 +194,7 @@ public class Parser {
             case IMPL :
                tagLen = findEndTag(text, len, pos, currentEndTag);
                if (tagLen > 0) {
-                  System.out.println("  add impl"); // TODO DELETE DEBUG
+                  site.printDebugMessage("  add impl"); // TODO DELETE DEBUG
 
                   parse(file, currentPart, sb.toString());
 
