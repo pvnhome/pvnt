@@ -34,6 +34,6 @@ public class EditPart extends CompositePart {
    public void write(Writer writer) throws IOException {
       writer.write("<!--pvnEditBeg " + getId() + "-->");
       super.write(writer);
-      writer.write("<!--pvnEditEnd-->");
+      writer.write("<!--pvnEditEnd " + getId() + "-->");
    }
 }

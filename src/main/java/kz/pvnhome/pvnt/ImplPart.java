@@ -35,7 +35,7 @@ public class ImplPart extends CompositePart {
    public void write(Writer writer) throws IOException {
       writer.write("<!--pvnImplBeg " + getId() + "-->");
       super.write(writer);
-      writer.write("<!--pvnImplEnd-->");
+      writer.write("<!--pvnImplEnd " + getId() + "-->");
    }
 
    //==============================================================
