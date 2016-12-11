@@ -70,6 +70,10 @@ public class Site {
             }
          }
       }
+
+      if (files.isEmpty()) {
+         throw new Exception("Files not found");
+      }
    }
 
    public void process() throws Exception {
