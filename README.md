@@ -40,7 +40,7 @@ HTML-file A.html:
 ```html
 <!DOCTYPE html>
 <html lang="ru">
-<!--pvnTmplBeg templates/template_ru.html-->
+<!--pvnTmplBeg templates/template.html-->
 <head>
    <meta charset="utf-8">
    <!--pvnImplBeg title-->
@@ -61,6 +61,14 @@ HTML-file A.html:
 <!--pvnTmplEnd-->
 </html>
 ```
+### Installation
+
+Installation as simple as 1-2-3:
+* Download _pvnt-x.xx.zip_ and extract it into the directory of your choice.
+* Add the _[PVNT]/bin_ directory to your _PATH_ environment variable.
+* Change _[PVNT]/examples/site/templates/template.html_ file.
+* Execute _pvnt_ command in _[PVNT]/examples/site_ directory.
+* Look at A.html and B.html files for changes.
 
 ### Website
 * PVNT Source code
