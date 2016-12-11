@@ -11,10 +11,10 @@ import java.nio.file.Path;
 public class Parser {
    private static final char[] TAG_PREFIX = new char[]{'<', '!', '-', '-', 'p', 'v', 'n'};
    private static final int TAG_BEG_LEN = TAG_PREFIX.length + 7;
-   private static final char[] TAG_BEG_END = new char[]{'-', '-', '>'};
-   private static final char[] TAG_END_TMPL = new char[]{'<', '!', '-', '-', 'p', 'v', 'n', 'T', 'm', 'p', 'l', 'E', 'n', 'd', '-', '-', '>'};
-   private static final char[] TAG_END_EDIT = new char[]{'<', '!', '-', '-', 'p', 'v', 'n', 'E', 'd', 'i', 't', 'E', 'n', 'd', '-', '-', '>'};
-   private static final char[] TAG_END_IMPL = new char[]{'<', '!', '-', '-', 'p', 'v', 'n', 'I', 'm', 'p', 'l', 'E', 'n', 'd', '-', '-', '>'};
+   private static final String TAG_BEG_END = "-->";
+   private static final String TAG_END_TMPL = "<!--pvnTmplEnd-->";
+   private static final String TAG_END_EDIT = "<!--pvnEditEnd";
+   private static final String TAG_END_IMPL = "<!--pvnImplEnd";
 
    private enum State {
       TEXT,
@@ -39,6 +39,7 @@ public class Parser {
       StringBuilder sb = new StringBuilder();
 
       Part currentPart = null;
+      String currentEndTag = null;
 
       State state = State.TEXT;
 
@@ -63,7 +64,7 @@ public class Parser {
                break;
 
             case TMPL_ID :
-               tagLen = findBegTagEnd(text, len, pos);
+               tagLen = findEndTag(text, len, pos, TAG_BEG_END);
                if (tagLen > 0) {
                   if (file.getTmpl() == null) {
                      file.setTmpl(new TmplPart(sb.toString().trim()));
@@ -90,7 +91,7 @@ public class Parser {
                break;
 
             case TMPL :
-               tagLen = findTmplEndTag(text, len, pos);
+               tagLen = findEndTag(text, len, pos, TAG_END_TMPL);
                if (tagLen > 0) {
                   System.out.println("  add tmpl"); // TODO DELETE DEBUG
 
@@ -123,9 +124,11 @@ public class Parser {
                break;
 
             case EDIT_ID :
-               tagLen = findBegTagEnd(text, len, pos);
+               tagLen = findEndTag(text, len, pos, TAG_BEG_END);
                if (tagLen > 0) {
                   currentPart = new EditPart(sb.toString().trim());
+                  sb.setLength(0);
+                  currentEndTag = sb.append(TAG_END_EDIT).append(" ").append(currentPart.getId()).append(TAG_BEG_END).toString();
                   sb.setLength(0);
                   pos += tagLen;
                   state = State.EDIT;
@@ -136,7 +139,7 @@ public class Parser {
                break;
 
             case EDIT :
-               tagLen = findEditEndTag(text, len, pos);
+               tagLen = findEndTag(text, len, pos, currentEndTag);
                if (tagLen > 0) {
                   System.out.println("  add edit"); // TODO DELETE DEBUG
 
@@ -155,9 +158,11 @@ public class Parser {
                break;
 
             case IMPL_ID :
-               tagLen = findBegTagEnd(text, len, pos);
+               tagLen = findEndTag(text, len, pos, TAG_BEG_END);
                if (tagLen > 0) {
                   currentPart = new ImplPart(sb.toString().trim());
+                  sb.setLength(0);
+                  currentEndTag = sb.append(TAG_END_IMPL).append(" ").append(currentPart.getId()).append(TAG_BEG_END).toString();
                   sb.setLength(0);
                   pos += tagLen;
                   state = State.IMPL;
@@ -168,7 +173,7 @@ public class Parser {
                break;
 
             case IMPL :
-               tagLen = findImplEndTag(text, len, pos);
+               tagLen = findEndTag(text, len, pos, currentEndTag);
                if (tagLen > 0) {
                   System.out.println("  add impl"); // TODO DELETE DEBUG
 
@@ -240,54 +245,17 @@ public class Parser {
       }
    }
 
-   private static int findBegTagEnd(String t, int l, int p) {
-      return findEndTag(t, l, p, TAG_BEG_END);
-   }
-
-   private static int findTmplEndTag(String t, int l, int p) {
-      return findEndTag(t, l, p, TAG_END_TMPL);
-   }
-
-   private static int findEditEndTag(String t, int l, int p) {
-      return findEndTag(t, l, p, TAG_END_EDIT);
-   }
-
-   private static int findImplEndTag(String t, int l, int p) {
-      return findEndTag(t, l, p, TAG_END_IMPL);
-   }
-
-   private static int findEndTag(String t, int l, int p, char[] c) {
-      if (p + c.length <= l) {
-         for (int i = 0; i < c.length; i++) {
-            if (t.charAt(p + i) != c[i]) {
+   private static int findEndTag(String t, int l, int p, String tag) {
+      int len = tag.length();
+      if (p + len <= l) {
+         for (int i = 0; i < len; i++) {
+            if (t.charAt(p + i) != tag.charAt(i)) {
                return 0;
             }
          }
-         return c.length;
+         return len;
       } else {
          return 0;
-      }
-   }
-
-   //==============================================================
-   // GET/SET-methods.
-   //==============================================================
-
-   //TODO
-
-   //==============================================================
-   // Private classes.
-   //==============================================================
-
-   private static class Tag {
-      public State state;
-      public int len;
-      public String id;
-
-      public Tag(State state, int len, String id) {
-         this.state = state;
-         this.len = len;
-         this.id = id;
       }
    }
 }
