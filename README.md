@@ -1,5 +1,14 @@
-# pvnt
-PVN Template utility
+PVNT
+=========
+
+### Introduction
+
+_PVNT is a simple, open source template utility written in Java._
+
+* Version: 0.90 (beta)
+* Author: [pvnhome](mailto:pvnhome@yandex.ru)
+
+### Features
 
 Template file:
 ```html
@@ -52,3 +61,9 @@ HTML-file A.html:
 <!--pvnTmplEnd-->
 </html>
 ```
+
+### Website
+* PVNT Source code
+<https://github.com/pvnhome/pvnt>
+* Binary downloads 
+<http://sourceforge.net/projects/pvnt/files>
