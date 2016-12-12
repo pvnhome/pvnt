@@ -106,4 +106,4 @@ Installation as simple as 1-2-3:
 * PVNT Source code
 <https://github.com/pvnhome/pvnt>
 * Binary downloads 
-<http://sourceforge.net/projects/pvnt/files>
+<https://github.com/pvnhome/pvnt/releases/tag/v0.9-beta.1>
