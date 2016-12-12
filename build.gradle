@@ -2,3 +2,11 @@ plugins {
    id 'java'
    id 'eclipse'
 }
+
+version = '0.9.1'
+
+jar {
+   manifest {
+      attributes 'Implementation-Version': version
+   }
+}

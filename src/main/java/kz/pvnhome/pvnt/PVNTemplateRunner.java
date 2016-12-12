@@ -28,9 +28,9 @@ package kz.pvnhome.pvnt;
  * @author victor
  */
 public class PVNTemplateRunner {
-   public static void main(String[] args) {
-      System.out.println("PVN Template engine (version 0.91 beta)");
+   public static final String VERSION = "0.91 beta";
 
+   public static void main(String[] args) {
       String path = ".";
       String ext = "html";
       boolean debugMode = false;
@@ -39,6 +39,9 @@ public class PVNTemplateRunner {
       if (args.length > 0) {
          if ("-h".equals(args[0]) || "-help".equals(args[0])) {
             printUsage();
+            System.exit(0);
+         } else if ("-version".equals(args[0])) {
+            printVersion();
             System.exit(0);
          } else if ("-d".equals(args[0]) || "-debug".equals(args[0])) {
             debugMode = true;
@@ -57,6 +60,8 @@ public class PVNTemplateRunner {
          printUsage();
          System.exit(0);
       }
+
+      printVersion();
 
       System.out.println("INFO: Process all " + ext + " files in " + path + " (debug " + (debugMode ? "on" : "off") + ")");
 
@@ -91,9 +96,15 @@ public class PVNTemplateRunner {
    }
 
    private static void printUsage() {
+      printVersion();
       System.out.println("usage: pvnt [options] [path/to/site [extension]]");
       System.out.println("Options:");
       System.out.println("   -help, -h              print this message");
+      System.out.println("   -version               print the version information and exit");
       System.out.println("   -debug, -d             print debugging information");
+   }
+
+   private static void printVersion() {
+      System.out.println("PVN Template engine (version " + VERSION + ")");
    }
 }
