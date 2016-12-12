@@ -9,5 +9,5 @@ set APPHOME=%DIR%..
 
 set CLASSPATH=%APPHOME%\lib\pvnt-0.9.2.jar
 
-@rem Execute Gradle
+@rem Execute PVNT
 java.exe -classpath "%CLASSPATH%" kz.pvnhome.pvnt.PVNTemplateRunner %*
