@@ -24,11 +24,12 @@ package kz.pvnhome.pvnt;
  * History:
  * 09.12.2016 - 0.90 - (BETA) Basic functionality. Ready for testing. (victor)
  * 12.12.2016 - 0.91 - (BETA) Added command line switch "-d". (victor)
+ * 12.12.2016 - 0.92 - (BETA) REM was deleted from pvnt.bat. (victor)
  * 
  * @author victor
  */
 public class PVNTemplateRunner {
-   public static final String VERSION = "0.91 beta";
+   public static final String VERSION = "0.92 beta";
 
    public static void main(String[] args) {
       String path = ".";

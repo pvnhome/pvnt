@@ -5,7 +5,7 @@ PVNT
 
 _PVNT is a simple, open source template utility written in Java._
 
-* Version: 0.91 (beta)
+* Version: 0.92 (beta)
 * Author: [pvnhome](mailto:pvnhome@yandex.ru)
 
 ### Features
@@ -106,4 +106,4 @@ Installation as simple as 1-2-3:
 * PVNT Source code
 <https://github.com/pvnhome/pvnt>
 * Binary downloads 
-<https://github.com/pvnhome/pvnt/releases/tag/v0.9-beta.1>
+<https://github.com/pvnhome/pvnt/releases/tag/v0.9-beta.2>
