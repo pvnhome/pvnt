@@ -105,5 +105,7 @@ Installation as simple as 1-2-3:
 ### Website
 * PVNT Source code
 <https://github.com/pvnhome/pvnt>
+* PVNT in Go Language Source code
+<https://github.com/pvnhome/pvnt_go>
 * Binary downloads 
 <https://github.com/pvnhome/pvnt/releases/tag/v0.9-beta.2>
