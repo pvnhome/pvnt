@@ -1,6 +1,6 @@
 @echo off
 @rem ###################################
-@rem  PVNT startup script for Windows
+@rem  Скрипт для запуска PVNT
 @rem ###################################
 
 set DIR=%~dp0
