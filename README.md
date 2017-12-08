@@ -89,9 +89,9 @@ HTML-file B.html:
 </html>
 ```
 We can use only three types of tags:
-* pvnTmpl - used to define template file
-* pvnEdit - used to define editable region in template file
-* pvnImpl - used to override editable region
+* pvnTmpl - used to define template file.
+* pvnEdit - used to define editable region in template file.
+* pvnImpl - used to override editable region.
 
 ### Installation
 
